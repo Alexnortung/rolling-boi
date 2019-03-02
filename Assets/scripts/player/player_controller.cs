@@ -58,22 +58,7 @@ public class player_controller : MonoBehaviour {
 	        moveMultiplier = -1;
 	    }
 
-        if (grounded)
-        {
-            rb2d.velocity = new Vector2(horizontalSpeed * movementSpeed * moveMultiplier, rb2d.velocity.y);
-        }
-        else
-        {
-            if (horizontalSpeed == 0)
-            {
-                // air resistance
-                rb2d.AddForce(new Vector2(-rb2d.velocity.x * 3 /10, 0), ForceMode2D.Force);
-            }
-            else
-            {
-                rb2d.AddForce(new Vector2(horizontalSpeed * accelerationAir * 5, 0), ForceMode2D.Force);
-            }
-        }
+        rb2d.velocity = new Vector2(horizontalSpeed * movementSpeed * moveMultiplier, rb2d.velocity.y);
 
         float velx = rb2d.velocity.x;
 
