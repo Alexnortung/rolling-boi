@@ -8,9 +8,12 @@ public class JumpingEnemy : enemy
 
     private GameObject player;
     private ManageGame gameManager;
+    [SerializeField] private SpriteRenderer spRenderer;
+    [SerializeField] private Sprite[] JumpingSprites;
 
     private float xThredshold = 1f;
-    [SerializeField] private float lastGroundHit = 0;
+    [SerializeField] private float lastGroundHit = 1;
+    [SerializeField] private float UnstuckTimer = 3;
     private float timeForTurn = 1;
 
     void Start()
@@ -18,11 +21,13 @@ public class JumpingEnemy : enemy
         defaultContructor();
         player = GameObject.FindGameObjectWithTag("Player");
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ManageGame>();
+        spRenderer = gameObject.GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
         bool isGrounded = IsGrounded();
+
         if (player.transform.position.x < gameObject.transform.position.x && isFacingRight)
         {
             // få det her til at virke
@@ -42,6 +47,7 @@ public class JumpingEnemy : enemy
         }
 
         jumpingMovement(isGrounded);
+        Unstuck();
     }
 
     private void jumpingMovement(bool isGrounded)
@@ -51,6 +57,19 @@ public class JumpingEnemy : enemy
         if (isFacingRight)
         {
             movementX = movementSpeed;
+        }
+
+        if (rb2d.velocity.y > 0)
+        {
+            spRenderer.sprite = JumpingSprites[3];
+        }
+        else if (rb2d.velocity.y < 0)
+        {
+            spRenderer.sprite = JumpingSprites[2];
+        }
+        else
+        {
+            spRenderer.sprite = JumpingSprites[1];
         }
 
         if (isGrounded && gameManager.Timer - lastGroundHit > xThredshold)
@@ -85,5 +104,27 @@ public class JumpingEnemy : enemy
         }
 
         return false;
+    }
+
+    private void Unstuck()
+    {
+        float rayLength = circleCollider.radius * 1.3f;
+        int layerMask = 1 << 9;
+        RaycastHit2D rayRight = Physics2D.Raycast(gameObject.transform.position, Vector2.right, rayLength, ~layerMask);
+        Debug.DrawRay(transform.position, Vector3.right * rayLength, Color.magenta, 0f, false);
+        RaycastHit2D rayLeft = Physics2D.Raycast(gameObject.transform.position, Vector2.left, rayLength, ~layerMask);
+        Debug.DrawRay(transform.position, Vector3.left * rayLength, Color.magenta, 0f, false);
+
+        if (rayRight.collider != null && rb2d.velocity.x > 0)
+        {
+            rb2d.velocity = new Vector2(0, rb2d.velocity.y);
+            
+            //rb2d.AddForce(new Vector2(-100,0), ForceMode2D.Impulse);
+        }
+
+        if (rayLeft.collider != null && rb2d.velocity.x < 0)
+        {
+            rb2d.velocity = new Vector2(0, rb2d.velocity.y);
+        }
     }
 }
