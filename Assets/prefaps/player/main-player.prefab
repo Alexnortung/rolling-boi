@@ -126,6 +126,7 @@ MonoBehaviour:
   jumpHeight: 5
   maxVelocityX: 5
   fireVelocity: 3.75
+  timeDiffFireVel: 0.35
   normalGravityScale: 0.7
   fireAngularVel: 650
   isReversed: 0
@@ -164,7 +165,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: f43d65e1a91dc4944b41b654f717e2d5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 892976237b5e5f343a7d9811bec43b84, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
