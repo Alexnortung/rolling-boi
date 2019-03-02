@@ -5,6 +5,7 @@ using UnityEngine;
 public class player_controller : MonoBehaviour {
 
     public Rigidbody2D rb2d;
+    public ManageGame gameManager;
     public float movementSpeed = 5;
     public float accelerationAir = 5;
     public float jumpHeight = 5;
@@ -27,7 +28,8 @@ public class player_controller : MonoBehaviour {
         jumpKeys.Add(KeyCode.Space);
         jumpKeys.Add(KeyCode.W);
         jumpKeys.Add(KeyCode.UpArrow);
-    }
+	    gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ManageGame>();
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -80,6 +82,9 @@ public class player_controller : MonoBehaviour {
             case "AlienBeam":
                 AlienBeamBehaviour();
                 Debug.Log("In alien beam");
+                break;
+            case "Spikes":
+                gameManager.RestartLevel();
                 break;
             default:
                 break;
