@@ -127,7 +127,7 @@ MonoBehaviour:
   maxVelocityX: 5
   fireVelocity: 3.75
   normalGravityScale: 0.7
-  fireAngularVel: 10
+  fireAngularVel: 650
   isReversed: 0
 --- !u!212 &212051786539603892
 SpriteRenderer:
