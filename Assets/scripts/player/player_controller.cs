@@ -12,6 +12,7 @@ public class player_controller : MonoBehaviour {
     public float maxVelocityX = 5;
     public float fireVelocity = 3.75f;
     public float timeDiffFireVel = 0.35f;
+    private float lastKapowTime = 0;
 
     public float normalGravityScale = 0.7f;
 
@@ -98,6 +99,7 @@ public class player_controller : MonoBehaviour {
                     if (col.collider.gameObject.GetComponent<enemy>() != null)
                     {
                         col.collider.gameObject.GetComponent<enemy>().die();
+                        
                     }
                     else if (col.gameObject.GetComponent<follow_player_enemy>() != null)
                     {
@@ -107,8 +109,9 @@ public class player_controller : MonoBehaviour {
                     else if (col.collider.gameObject.GetComponent<JumpingEnemy>() != null)
                     {
                         col.collider.gameObject.GetComponent<JumpingEnemy>().die();
+                        
                     }
-                    
+                    lastKapowTime = gameManager.Timer;
 
                 } else
                 {
@@ -142,7 +145,16 @@ public class player_controller : MonoBehaviour {
     
     void setFireIfAngularVel()
     {
-        if (Mathf.Abs(rb2d.angularVelocity) > fireAngularVel)
+        bool lastKapowtimeFire = false;
+        if (Mathf.Abs(lastKapowTime - gameManager.Timer) < timeDiffFireVel + 0.05f && lastKapowTime != 0)
+        {
+            hasReachedFireVel = true;
+            timeReachedFireVel = lastKapowTime;
+            lastKapowtimeFire = true;
+            showFire();
+        }
+
+        if (Mathf.Abs(rb2d.angularVelocity) > fireAngularVel || lastKapowtimeFire)
         {
             if (hasReachedFireVel == false)
             {
