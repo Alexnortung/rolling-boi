@@ -10,6 +10,7 @@ public class player_controller : MonoBehaviour {
     public float jumpHeight = 5;
     public float maxVelocityX = 5;
 
+    private List<KeyCode> jumpKeys = new List<KeyCode>();
     private RaycastHit2D rayHit;
     private CircleCollider2D body;
 
@@ -19,7 +20,10 @@ public class player_controller : MonoBehaviour {
 	void Start () {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         body = gameObject.GetComponent<CircleCollider2D>();
-	}
+        jumpKeys.Add(KeyCode.Space);
+        jumpKeys.Add(KeyCode.W);
+        jumpKeys.Add(KeyCode.UpArrow);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -47,7 +51,7 @@ public class player_controller : MonoBehaviour {
 
         
 
-        if (grounded && Input.GetKeyDown("space"))
+        if (grounded && IfOneOfMultipleKeyDown(jumpKeys))
         {
             rb2d.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
         }
@@ -55,6 +59,18 @@ public class player_controller : MonoBehaviour {
         // Debug.Log(rb2d.velocity);
 
 	}
+
+    bool IfOneOfMultipleKeyDown(List<KeyCode> list)
+    {
+        foreach (KeyCode key in list)
+        {
+            if (Input.GetKeyDown(key))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
     private bool IsGrounded()
     {
