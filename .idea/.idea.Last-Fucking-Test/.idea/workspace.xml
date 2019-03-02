@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b1da8f78-134e-4543-b9c4-f7f7506fc414" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/scripts/player/player_controller.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/scripts/player/player_controller.cs" afterDir="false" />
-    </list>
+    <list default="true" id="b1da8f78-134e-4543-b9c4-f7f7506fc414" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,27 +13,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Assets/scripts/player/player_controller.cs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+            <state relative-caret-position="272">
+              <caret line="18" column="14" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
               <folding>
-                <marker date="1551532822261" expanded="true" signature="127:2462" ph="{...}" />
-                <marker date="1551532822261" expanded="true" signature="1136:1165" ph="{...}" />
-                <marker date="1551532822261" expanded="true" signature="1136:1780" ph="{...}" />
-                <marker date="1551532822261" expanded="true" signature="1178:1295" ph="{...}" />
-                <marker date="1551532822261" expanded="true" signature="1379:1566" ph="{...}" />
-                <marker date="1551532822261" expanded="true" signature="1645:1738" ph="{...}" />
-                <marker date="1551532822261" expanded="true" signature="1833:2021" ph="{...}" />
-                <marker date="1551532822261" expanded="true" signature="1877:1993" ph="{...}" />
-                <marker date="1551532822261" expanded="true" signature="1926:1983" ph="{...}" />
-                <marker date="1551532822261" expanded="true" signature="2052:2454" ph="{...}" />
-                <marker date="1551532822261" expanded="true" signature="2380:2425" ph="{...}" />
+                <marker date="1551534020403" expanded="true" signature="127:3407" ph="{...}" />
+                <marker date="1551534020403" expanded="true" signature="2778:2966" ph="{...}" />
+                <marker date="1551534020403" expanded="true" signature="2822:2938" ph="{...}" />
+                <marker date="1551534020403" expanded="true" signature="2871:2928" ph="{...}" />
+                <marker date="1551534020403" expanded="true" signature="2997:3399" ph="{...}" />
+                <marker date="1551534020403" expanded="true" signature="3325:3370" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Assets/scripts/Obsticles/AlientStale.cs">
+        <entry file="file://$PROJECT_DIR$/Assets/scripts/enemy/JumpingEnemy.cs">
           <provider selected="true" editor-type-id="text-editor">
             <state>
               <folding>
@@ -116,11 +109,12 @@
       <updated>1551532549291</updated>
       <workItem from="1551532554521" duration="45000" />
       <workItem from="1551532926884" duration="16000" />
+      <workItem from="1551534609240" duration="10000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61000" />
+    <option name="totallyTimeSpent" value="71000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -181,25 +175,29 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Assets/scripts/player/player_controller.cs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+        <state relative-caret-position="272">
+          <caret line="18" column="14" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
           <folding>
-            <marker date="1551532822261" expanded="true" signature="127:2462" ph="{...}" />
-            <marker date="1551532822261" expanded="true" signature="1136:1165" ph="{...}" />
-            <marker date="1551532822261" expanded="true" signature="1136:1780" ph="{...}" />
-            <marker date="1551532822261" expanded="true" signature="1178:1295" ph="{...}" />
-            <marker date="1551532822261" expanded="true" signature="1379:1566" ph="{...}" />
-            <marker date="1551532822261" expanded="true" signature="1645:1738" ph="{...}" />
-            <marker date="1551532822261" expanded="true" signature="1833:2021" ph="{...}" />
-            <marker date="1551532822261" expanded="true" signature="1877:1993" ph="{...}" />
-            <marker date="1551532822261" expanded="true" signature="1926:1983" ph="{...}" />
-            <marker date="1551532822261" expanded="true" signature="2052:2454" ph="{...}" />
-            <marker date="1551532822261" expanded="true" signature="2380:2425" ph="{...}" />
+            <marker date="1551534020403" expanded="true" signature="127:3407" ph="{...}" />
+            <marker date="1551534020403" expanded="true" signature="2778:2966" ph="{...}" />
+            <marker date="1551534020403" expanded="true" signature="2822:2938" ph="{...}" />
+            <marker date="1551534020403" expanded="true" signature="2871:2928" ph="{...}" />
+            <marker date="1551534020403" expanded="true" signature="2997:3399" ph="{...}" />
+            <marker date="1551534020403" expanded="true" signature="3325:3370" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Assets/scripts/Obsticles/AlientStale.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#78#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Assets/scripts/enemy/JumpingEnemy.cs">
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <folding>
