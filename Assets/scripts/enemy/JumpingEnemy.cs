@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemy : MonoBehaviour {
+public class JumpingEnemy : MonoBehaviour {
 
     [Header("Movement Speed")]
     public float movementSpeed = 2.5f;
@@ -10,64 +10,52 @@ public class enemy : MonoBehaviour {
     [Header("Facing right")]
     public bool isFacingRight = false;
 
-    protected Rigidbody2D rb2d;
-    protected SpriteRenderer sprite;
-    protected float rayLength = 0.2f;
-    protected CircleCollider2D circleCollider;
-    public LayerMask playerLayerMask = 1 << 8;
+    private Rigidbody2D rb2d;
+    private SpriteRenderer sprite;
+    private float rayLength = 0.2f;
+    private CircleCollider2D circleCollider;
+    private LayerMask playerLayerMask;
 
-	// Use this for initialization
-	void Start () {
-        defaultContructor();
-        
-    }
-
-    protected void defaultContructor()
-    {
+    // Use this for initialization
+    void Start () {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         sprite = gameObject.GetComponent<SpriteRenderer>();
         sprite.flipX = isFacingRight;
         circleCollider = GetComponent<CircleCollider2D>();
+        playerLayerMask = 1 << 8;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        if (isColliderInFront())
-        {
-            turnAround();
-        }
-        standardMovement();
-	}
+	    if (isColliderInFront())
+	    {
+	        turnAround();
+	    }
 
+	    float newMovementX = -movementSpeed;
 
-    protected void standardMovement()
-    {
-        
+	    if (isFacingRight)
+	    {
+	        newMovementX = movementSpeed;
+	    }
 
-        float newMovementX = -movementSpeed;
-
-        if (isFacingRight)
-        {
-            newMovementX = movementSpeed;
-        }
-
-        rb2d.velocity = new Vector2(newMovementX, rb2d.velocity.y);
+	    rb2d.velocity = new Vector2(newMovementX, rb2d.velocity.y);
     }
 
-    protected void turnAround()
+    void turnAround()
     {
         isFacingRight = !isFacingRight;
         sprite.flipX = isFacingRight;
     }
 
-    protected bool isColliderInFront()
+    bool isColliderInFront()
     {
         float rayOriginXMargin = circleCollider.radius + 0.01f;
         float rayOriginX = gameObject.transform.position.x;
         float rayOriginY = gameObject.transform.position.y;
         Vector2 facingVector = isFacingRight ? Vector2.right : Vector2.left;
 
-        if(isFacingRight)
+        if (isFacingRight)
         {
             rayOriginX += rayOriginXMargin;
         }
