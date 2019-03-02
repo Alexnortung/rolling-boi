@@ -25,5 +25,9 @@ public class follow_player_enemy : enemy {
         }
 
         standardMovement();
+        if (isColliderInFront())
+        {
+            rb2d.velocity = new Vector2(0, rb2d.velocity.y);
+        }
 	}
 }
