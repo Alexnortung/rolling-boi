@@ -17,7 +17,7 @@ public class player_controller : MonoBehaviour {
     private RaycastHit2D rayHit;
     private CircleCollider2D body;
 
-    [SerializeField] private bool isReversed = false;
+    [SerializeField] public bool isReversed = false;
 
 
 
@@ -81,7 +81,6 @@ public class player_controller : MonoBehaviour {
         {
             case "AlienBeam":
                 AlienBeamBehaviour();
-                Debug.Log("In alien beam");
                 break;
             case "Spikes":
                 gameManager.RestartLevel();
@@ -98,7 +97,6 @@ public class player_controller : MonoBehaviour {
         {
             case "AlienBeam":
                 ReverseAlienBeamBehaviour();
-                Debug.Log("Exit alien beam");
                 break;
             default:
                 break;
