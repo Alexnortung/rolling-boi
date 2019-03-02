@@ -13,6 +13,7 @@ public class player_controller : MonoBehaviour {
     private List<KeyCode> jumpKeys = new List<KeyCode>();
     private RaycastHit2D rayHit;
     private CircleCollider2D body;
+    private float defaultDrag = 0;
 
 
 
@@ -35,7 +36,15 @@ public class player_controller : MonoBehaviour {
         }
         else
         {
-            rb2d.AddForce(new Vector2(horizontalSpeed * accelerationAir, 0), ForceMode2D.Force);
+            if (horizontalSpeed == 0)
+            {
+                // air resistance
+                rb2d.AddForce(new Vector2(-rb2d.velocity.x /10, 0), ForceMode2D.Impulse);
+            }
+            else
+            {
+                rb2d.AddForce(new Vector2(horizontalSpeed * accelerationAir, 0), ForceMode2D.Impulse);
+            }
         }
 
         float velx = rb2d.velocity.x;

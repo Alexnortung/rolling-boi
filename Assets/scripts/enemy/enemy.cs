@@ -10,27 +10,39 @@ public class enemy : MonoBehaviour {
     [Header("Facing right")]
     public bool isFacingRight = false;
 
-    private Rigidbody2D rb2d;
-    private SpriteRenderer sprite;
-    private float rayLength = 0.2f;
-    private CircleCollider2D circleCollider;
-    private LayerMask playerLayerMask;
+    protected Rigidbody2D rb2d;
+    protected SpriteRenderer sprite;
+    protected float rayLength = 0.2f;
+    protected CircleCollider2D circleCollider;
+    public LayerMask playerLayerMask = 1 << 8;
 
 	// Use this for initialization
 	void Start () {
+        defaultContructor();
+        
+    }
+
+    protected void defaultContructor()
+    {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         sprite = gameObject.GetComponent<SpriteRenderer>();
         sprite.flipX = isFacingRight;
         circleCollider = GetComponent<CircleCollider2D>();
-        playerLayerMask = 1 << 8;
     }
 	
 	// Update is called once per frame
 	void Update () {
-		if (isColliderInFront())
+        if (isColliderInFront())
         {
             turnAround();
         }
+        standardMovement();
+	}
+
+
+    protected void standardMovement()
+    {
+        
 
         float newMovementX = -movementSpeed;
 
@@ -40,15 +52,15 @@ public class enemy : MonoBehaviour {
         }
 
         rb2d.velocity = new Vector2(newMovementX, rb2d.velocity.y);
-	}
+    }
 
-    void turnAround()
+    protected void turnAround()
     {
         isFacingRight = !isFacingRight;
         sprite.flipX = isFacingRight;
     }
 
-    bool isColliderInFront()
+    protected bool isColliderInFront()
     {
         float rayOriginXMargin = circleCollider.radius + 0.01f;
         float rayOriginX = gameObject.transform.position.x;
