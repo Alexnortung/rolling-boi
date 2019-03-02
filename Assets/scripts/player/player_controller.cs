@@ -8,7 +8,7 @@ public class player_controller : MonoBehaviour {
     public ManageGame gameManager;
     public float movementSpeed = 5;
     public float accelerationAir = 5;
-    public float jumpHeight = 5;
+    public float jumpHeight = 7;
     public float maxVelocityX = 5;
     public float fireVelocity = 3.75f;
 
@@ -23,6 +23,7 @@ public class player_controller : MonoBehaviour {
     private GameObject fire;
 
     [SerializeField] public bool isReversed = false;
+    [SerializeField] public bool isAbleToWalkOnSpikes = false;
 
 
 
@@ -36,7 +37,7 @@ public class player_controller : MonoBehaviour {
 	    gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ManageGame>();
         fire = transform.GetChild(0).gameObject;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
         float horizontalSpeed = Input.GetAxis("Horizontal");
@@ -59,11 +60,11 @@ public class player_controller : MonoBehaviour {
             if (horizontalSpeed == 0)
             {
                 // air resistance
-                rb2d.AddForce(new Vector2(-rb2d.velocity.x /10, 0), ForceMode2D.Impulse);
+                rb2d.AddForce(new Vector2(-rb2d.velocity.x * 3 /10, 0), ForceMode2D.Force);
             }
             else
             {
-                rb2d.AddForce(new Vector2(horizontalSpeed * accelerationAir, 0), ForceMode2D.Impulse);
+                rb2d.AddForce(new Vector2(horizontalSpeed * accelerationAir * 5, 0), ForceMode2D.Force);
             }
         }
 
@@ -76,9 +77,9 @@ public class player_controller : MonoBehaviour {
             rb2d.velocity = new Vector2(newXVel, rb2d.velocity.y);
         }
 
-        
 
-        
+
+
 
         if (grounded && IfOneOfMultipleKeyDown(jumpKeys))
         {
@@ -90,11 +91,26 @@ public class player_controller : MonoBehaviour {
         setFireIfAngularVel();
 	}
 
+    public void OnCollisionEnter2D(Collision2D col)
+    {
+        switch (col.collider.tag)
+        {
+            case "Spikes":
+                if(!isAbleToWalkOnSpikes) gameManager.RestartLevel();
+                break;
+            case "Enemy":
+                gameManager.RestartLevel();
+                break;
+            default:
+                break;;
+        }
+    }
+    
     void setFireIfAngularVel()
     {
         if (Mathf.Abs(rb2d.angularVelocity) > fireAngularVel)
         {
-            
+
             float fireDir = Mathf.Sign(rb2d.angularVelocity);
             fire.transform.localScale = new Vector3(-0.3f * fireDir, 0.3f, -0.5f);
             float fireRotation = -transform.eulerAngles.z * Mathf.Deg2Rad;
@@ -119,9 +135,6 @@ public class player_controller : MonoBehaviour {
         {
             case "AlienBeam":
                 AlienBeamBehaviour();
-                break;
-            case "Spikes":
-                gameManager.RestartLevel();
                 break;
             default:
                 break;
@@ -178,5 +191,5 @@ public class player_controller : MonoBehaviour {
         return false;
     }
 
-    
+
 }

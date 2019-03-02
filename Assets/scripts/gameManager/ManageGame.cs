@@ -15,6 +15,8 @@ public class ManageGame : MonoBehaviour
 
     [SerializeField] public bool HasGameBegun = true;
 
+    public float Timer = 0;
+
 
 	// Use this for initialization
     void Awake()
@@ -34,6 +36,8 @@ public class ManageGame : MonoBehaviour
             ChangeLevel();
 	        IsLevelWon = false;
 	    }
+
+	    Timer += Time.deltaTime;
 	}
 
     private void ChangeLevel()

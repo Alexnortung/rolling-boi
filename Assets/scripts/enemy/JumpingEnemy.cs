@@ -1,76 +1,83 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class JumpingEnemy : MonoBehaviour {
+public class JumpingEnemy : enemy
+{
 
-    [Header("Movement Speed")]
-    public float movementSpeed = 2.5f;
+    private GameObject player;
+    private ManageGame gameManager;
 
-    [Header("Facing right")]
-    public bool isFacingRight = false;
+    private float xThredshold = 1f;
+    [SerializeField] private float lastGroundHit = 0;
+    private float timeForTurn = 1;
 
-    private Rigidbody2D rb2d;
-    private SpriteRenderer sprite;
-    private float rayLength = 0.2f;
-    private CircleCollider2D circleCollider;
-    private LayerMask playerLayerMask;
-
-    // Use this for initialization
-    void Start () {
-        rb2d = gameObject.GetComponent<Rigidbody2D>();
-        sprite = gameObject.GetComponent<SpriteRenderer>();
-        sprite.flipX = isFacingRight;
-        circleCollider = GetComponent<CircleCollider2D>();
-        playerLayerMask = 1 << 8;
-    }
-	
-	// Update is called once per frame
-	void Update () {
-	    if (isColliderInFront())
-	    {
-	        turnAround();
-	    }
-
-	    float newMovementX = -movementSpeed;
-
-	    if (isFacingRight)
-	    {
-	        newMovementX = movementSpeed;
-	    }
-
-	    rb2d.velocity = new Vector2(newMovementX, rb2d.velocity.y);
-    }
-
-    void turnAround()
+    void Start()
     {
-        isFacingRight = !isFacingRight;
-        sprite.flipX = isFacingRight;
+        defaultContructor();
+        player = GameObject.FindGameObjectWithTag("Player");
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ManageGame>();
     }
 
-    bool isColliderInFront()
+    void Update()
     {
-        float rayOriginXMargin = circleCollider.radius + 0.01f;
-        float rayOriginX = gameObject.transform.position.x;
-        float rayOriginY = gameObject.transform.position.y;
-        Vector2 facingVector = isFacingRight ? Vector2.right : Vector2.left;
+        bool isGrounded = IsGrounded();
+        if (player.transform.position.x < gameObject.transform.position.x && isFacingRight)
+        {
+            // få det her til at virke
+            if (Mathf.Abs(player.transform.position.x - transform.position.x) > xThredshold)
+            {
+                turnAround();
+            }
+
+        }
+        else if (!isFacingRight && player.transform.position.x > gameObject.transform.position.x)
+        {
+            if (Mathf.Abs(player.transform.position.x - transform.position.x) > xThredshold)
+            {
+                turnAround();
+            }
+                
+        }
+
+        jumpingMovement(isGrounded);
+    }
+
+    private void jumpingMovement(bool isGrounded)
+    {
+        float movementX = -movementSpeed;
 
         if (isFacingRight)
         {
-            rayOriginX += rayOriginXMargin;
+            movementX = movementSpeed;
         }
-        else
+
+        if (isGrounded && gameManager.Timer - lastGroundHit > xThredshold)
         {
-            rayOriginX -= rayOriginXMargin;
+            rb2d.AddForce(new Vector2(0, 10), ForceMode2D.Impulse);
+            lastGroundHit = gameManager.Timer;
         }
 
-        // should not turn if player
+        if (player.transform.position.x > transform.position.x - (xThredshold / 2) &&
+            player.transform.position.x < transform.position.x + (xThredshold / 2) &&
+            !isGrounded)
+        {
+            rb2d.velocity = new Vector2(0, rb2d.velocity.y);
+        }
+        else if (!isGrounded)
+        {
+            rb2d.velocity = new Vector2(movementX, rb2d.velocity.y);
+        }
+        
+    }
 
-
-
-        Vector2 rayOrigin = new Vector2(rayOriginX, rayOriginY);
-        RaycastHit2D ray = Physics2D.Raycast(rayOrigin, facingVector, rayLength, ~playerLayerMask);
-        Debug.DrawRay(rayOrigin, facingVector * rayLength, Color.magenta, 0f, false);
+    private bool IsGrounded()
+    {
+        float rayLength = circleCollider.radius * 1.1f;
+        int layerMask = 1 << 9;
+        RaycastHit2D ray = Physics2D.Raycast(gameObject.transform.position, Vector2.down, rayLength, ~layerMask);
+        Debug.DrawRay(transform.position, Vector3.down * rayLength, Color.magenta, 0f, false);
 
         if (ray.collider != null)
         {
