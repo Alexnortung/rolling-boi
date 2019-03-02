@@ -8,7 +8,7 @@ public class player_controller : MonoBehaviour {
     public ManageGame gameManager;
     public float movementSpeed = 5;
     public float accelerationAir = 5;
-    public float jumpHeight = 5;
+    public float jumpHeight = 7;
     public float maxVelocityX = 5;
 
     public float normalGravityScale = 0.7f;
@@ -19,6 +19,7 @@ public class player_controller : MonoBehaviour {
     private float defaultDrag = 0;
 
     [SerializeField] public bool isReversed = false;
+    [SerializeField] public bool isAbleToWalkOnSpikes = false;
 
 
 
@@ -54,11 +55,11 @@ public class player_controller : MonoBehaviour {
             if (horizontalSpeed == 0)
             {
                 // air resistance
-                rb2d.AddForce(new Vector2(-rb2d.velocity.x /10, 0), ForceMode2D.Impulse);
+                rb2d.AddForce(new Vector2(-rb2d.velocity.x * 3 /10, 0), ForceMode2D.Force);
             }
             else
             {
-                rb2d.AddForce(new Vector2(horizontalSpeed * accelerationAir, 0), ForceMode2D.Impulse);
+                rb2d.AddForce(new Vector2(horizontalSpeed * accelerationAir * 5, 0), ForceMode2D.Force);
             }
         }
 
@@ -84,15 +85,27 @@ public class player_controller : MonoBehaviour {
 
 	}
 
+    public void OnCollisionEnter2D(Collision2D col)
+    {
+        switch (col.collider.tag)
+        {
+            case "Spikes":
+                if(!isAbleToWalkOnSpikes) gameManager.RestartLevel();
+                break;
+            case "Enemy":
+                gameManager.RestartLevel();
+                break;
+            default:
+                break;;
+        }
+    }
+
     public void OnTriggerEnter2D(Collider2D col)
     {
         switch (col.tag)
         {
             case "AlienBeam":
                 AlienBeamBehaviour();
-                break;
-            case "Spikes":
-                gameManager.RestartLevel();
                 break;
             default:
                 break;
