@@ -5,15 +5,20 @@ using UnityEngine;
 public class player_controller : MonoBehaviour {
 
     public Rigidbody2D rb2d;
+    public ManageGame gameManager;
     public float movementSpeed = 5;
     public float accelerationAir = 5;
     public float jumpHeight = 5;
     public float maxVelocityX = 5;
 
+    public float normalGravityScale = 0.7f;
+
     private List<KeyCode> jumpKeys = new List<KeyCode>();
     private RaycastHit2D rayHit;
     private CircleCollider2D body;
     private float defaultDrag = 0;
+
+    [SerializeField] private bool isReversed = false;
 
 
 
@@ -24,15 +29,25 @@ public class player_controller : MonoBehaviour {
         jumpKeys.Add(KeyCode.Space);
         jumpKeys.Add(KeyCode.W);
         jumpKeys.Add(KeyCode.UpArrow);
-    }
+	    gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ManageGame>();
+	}
 	
 	// Update is called once per frame
 	void Update () {
         float horizontalSpeed = Input.GetAxis("Horizontal");
         bool grounded = IsGrounded();
+
+        // the multiplyer that want to be set -1 if controls be reversed
+	    int moveMultiplier = 1;
+
+	    if (isReversed)
+	    {
+	        moveMultiplier = -1;
+	    }
+
         if (grounded)
         {
-            rb2d.velocity = new Vector2(horizontalSpeed * movementSpeed, rb2d.velocity.y);
+            rb2d.velocity = new Vector2(horizontalSpeed * movementSpeed * moveMultiplier, rb2d.velocity.y);
         }
         else
         {
@@ -69,7 +84,47 @@ public class player_controller : MonoBehaviour {
 
 	}
 
-    bool IfOneOfMultipleKeyDown(List<KeyCode> list)
+    public void OnTriggerEnter2D(Collider2D col)
+    {
+        switch (col.tag)
+        {
+            case "AlienBeam":
+                AlienBeamBehaviour();
+                Debug.Log("In alien beam");
+                break;
+            case "Spikes":
+                gameManager.RestartLevel();
+                break;
+            default:
+                break;
+        }
+        //Debug.Log("entered");
+    }
+
+    public void OnTriggerExit2D(Collider2D col)
+    {
+        switch (col.tag)
+        {
+            case "AlienBeam":
+                ReverseAlienBeamBehaviour();
+                Debug.Log("Exit alien beam");
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void AlienBeamBehaviour()
+    {
+        rb2d.gravityScale = -normalGravityScale;
+    }
+
+    private void ReverseAlienBeamBehaviour()
+    {
+        rb2d.gravityScale = normalGravityScale;
+    }
+
+    private bool IfOneOfMultipleKeyDown(List<KeyCode> list)
     {
         foreach (KeyCode key in list)
         {

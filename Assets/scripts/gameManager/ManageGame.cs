@@ -46,5 +46,10 @@ public class ManageGame : MonoBehaviour
 
     }
 
+    public void RestartLevel()
+    {
+        Application.LoadLevel(Application.loadedLevel);
+    }
+
     
 }
