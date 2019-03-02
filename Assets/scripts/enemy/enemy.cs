@@ -15,6 +15,7 @@ public class enemy : MonoBehaviour {
     protected float rayLength = 0.2f;
     protected CircleCollider2D circleCollider;
     public LayerMask playerLayerMask = 1 << 8;
+    public Transform kapowPrefab;
 
 	// Use this for initialization
 	void Start () {
@@ -58,6 +59,13 @@ public class enemy : MonoBehaviour {
     {
         isFacingRight = !isFacingRight;
         sprite.flipX = isFacingRight;
+    }
+
+    public void die()
+    {
+        Instantiate(kapowPrefab, gameObject.transform.position, Quaternion.identity);
+        Debug.Log(gameObject.transform);
+        Destroy(gameObject);
     }
 
     protected bool isColliderInFront()
