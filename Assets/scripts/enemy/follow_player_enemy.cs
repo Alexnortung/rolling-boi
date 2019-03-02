@@ -26,4 +26,9 @@ public class follow_player_enemy : enemy {
 
         standardMovement();
 	}
+
+    public void CallDeath()
+    {
+        die();
+    }
 }
