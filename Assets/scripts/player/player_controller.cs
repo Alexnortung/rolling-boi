@@ -10,13 +10,17 @@ public class player_controller : MonoBehaviour {
     public float accelerationAir = 5;
     public float jumpHeight = 5;
     public float maxVelocityX = 5;
+    public float fireVelocity = 3.75f;
 
     public float normalGravityScale = 0.7f;
+
+    public float fireAngularVel = 10f;
 
     private List<KeyCode> jumpKeys = new List<KeyCode>();
     private RaycastHit2D rayHit;
     private CircleCollider2D body;
     private float defaultDrag = 0;
+    private GameObject fire;
 
     [SerializeField] private bool isReversed = false;
 
@@ -30,6 +34,7 @@ public class player_controller : MonoBehaviour {
         jumpKeys.Add(KeyCode.W);
         jumpKeys.Add(KeyCode.UpArrow);
 	    gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ManageGame>();
+        fire = transform.GetChild(0).gameObject;
 	}
 	
 	// Update is called once per frame
@@ -82,7 +87,31 @@ public class player_controller : MonoBehaviour {
 
         // Debug.Log(rb2d.velocity);
 
+        setFireIfAngularVel();
 	}
+
+    void setFireIfAngularVel()
+    {
+        if (Mathf.Abs(rb2d.angularVelocity) > fireAngularVel)
+        {
+            
+            float fireDir = Mathf.Sign(rb2d.angularVelocity);
+            fire.transform.localScale = new Vector3(-0.3f * fireDir, 0.3f, -0.5f);
+            float fireRotation = -transform.eulerAngles.z * Mathf.Deg2Rad;
+            fire.transform.eulerAngles = new Vector3(0, 0, fireRotation);
+            Vector2 newFirePos = new Vector2(-0.55f * fireDir, 0);
+            float newX = Mathf.Cos(fireRotation) * newFirePos.magnitude;
+            float newY = Mathf.Sin(fireRotation) * newFirePos.magnitude;
+            newFirePos = new Vector2(newX * fireDir, newY * fireDir);
+            //Debug.Log(fireRotation);
+            fire.transform.localPosition = newFirePos;
+            fire.transform.position.Set(fire.transform.position.x, fire.transform.position.y, -0.1f);
+
+        } else
+        {
+            fire.transform.localScale = new Vector3(0, 0, 0);
+        }
+    }
 
     public void OnTriggerEnter2D(Collider2D col)
     {
