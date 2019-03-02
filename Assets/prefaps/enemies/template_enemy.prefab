@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 212890201555207564}
   - component: {fileID: 58660675593492246}
   - component: {fileID: 50453542538398114}
+  - component: {fileID: 114991239980909940}
   m_Layer: 0
   m_Name: template_enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1524559840259542}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.87, y: -1.22, z: 0}
+  m_LocalPosition: {x: -16108.226, y: 33619.76, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -77,6 +78,24 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.38
+--- !u!114 &114991239980909940
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1524559840259542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6820fc662bfda314b87c0e29241f2218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 2.5
+  isFacingRight: 0
+  playerLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  kapowPrefab: {fileID: 4398384644814406, guid: fe8023c47ec142544a34c5a7e7740812,
+    type: 2}
 --- !u!212 &212890201555207564
 SpriteRenderer:
   m_ObjectHideFlags: 1

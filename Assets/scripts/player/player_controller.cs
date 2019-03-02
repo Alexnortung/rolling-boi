@@ -26,6 +26,7 @@ public class player_controller : MonoBehaviour {
     private GameObject fire;
     private bool hasReachedFireVel = false;
     private float timeReachedFireVel = 0;
+    private bool isOnFire = false;
     
 
     [SerializeField] public bool isReversed = false;
@@ -91,7 +92,15 @@ public class player_controller : MonoBehaviour {
                 if(!isAbleToWalkOnSpikes) gameManager.RestartLevel();
                 break;
             case "Enemy":
-                gameManager.RestartLevel();
+                Debug.Log("collided with enemy");
+                if (isOnFire)
+                {
+                    col.collider.gameObject.GetComponent<enemy>().die();
+                } else
+                {
+                    gameManager.RestartLevel();
+                }
+                
                 break;
             default:
                 break;;
@@ -131,6 +140,7 @@ public class player_controller : MonoBehaviour {
             if (Mathf.Abs(timeReachedFireVel - gameManager.Timer) > timeDiffFireVel)
             {
                 showFire();
+                isOnFire = true;
             }
 
 
@@ -140,6 +150,7 @@ public class player_controller : MonoBehaviour {
         {
             hideFire();
             hasReachedFireVel = false;
+            isOnFire = false;
         }
     }
 
