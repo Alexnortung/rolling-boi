@@ -14,6 +14,8 @@ public class JumpingEnemy : enemy
     private float xThredshold = 1f;
     [SerializeField] private float lastGroundHit = 1;
     [SerializeField] private float UnstuckTimer = 3;
+    [SerializeField] private float AwakeDistance = 10;
+    [SerializeField] private float distanceToPlayer;
     private float timeForTurn = 1;
 
     void Start()
@@ -26,28 +28,33 @@ public class JumpingEnemy : enemy
 
     void Update()
     {
-        bool isGrounded = IsGrounded();
+        distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
 
-        if (player.transform.position.x < gameObject.transform.position.x && isFacingRight)
+        if (distanceToPlayer < AwakeDistance)
         {
-            // få det her til at virke
-            if (Mathf.Abs(player.transform.position.x - transform.position.x) > xThredshold)
+            bool isGrounded = IsGrounded();
+
+            if (player.transform.position.x < gameObject.transform.position.x && isFacingRight)
             {
-                turnAround();
+                // få det her til at virke
+                if (Mathf.Abs(player.transform.position.x - transform.position.x) > xThredshold)
+                {
+                    turnAround();
+                }
+
+            }
+            else if (!isFacingRight && player.transform.position.x > gameObject.transform.position.x)
+            {
+                if (Mathf.Abs(player.transform.position.x - transform.position.x) > xThredshold)
+                {
+                    turnAround();
+                }
+
             }
 
+            jumpingMovement(isGrounded);
+            Unstuck();
         }
-        else if (!isFacingRight && player.transform.position.x > gameObject.transform.position.x)
-        {
-            if (Mathf.Abs(player.transform.position.x - transform.position.x) > xThredshold)
-            {
-                turnAround();
-            }
-                
-        }
-
-        jumpingMovement(isGrounded);
-        Unstuck();
     }
 
     private void jumpingMovement(bool isGrounded)

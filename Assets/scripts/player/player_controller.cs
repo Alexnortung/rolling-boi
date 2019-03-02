@@ -131,7 +131,6 @@ public class player_controller : MonoBehaviour {
         float newX = Mathf.Cos(fireRotation) * newFirePos.magnitude;
         float newY = Mathf.Sin(fireRotation) * newFirePos.magnitude;
         newFirePos = new Vector2(newX * fireDir, newY * fireDir);
-        //Debug.Log(fireRotation);
         fire.transform.localPosition = newFirePos;
         fire.transform.position.Set(fire.transform.position.x, fire.transform.position.y, -0.1f);
     }
