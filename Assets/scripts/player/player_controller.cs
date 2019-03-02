@@ -177,7 +177,6 @@ public class player_controller : MonoBehaviour {
             default:
                 break;
         }
-        //Debug.Log("entered");
     }
 
     public void OnTriggerExit2D(Collider2D col)
@@ -218,10 +217,18 @@ public class player_controller : MonoBehaviour {
     {
         float rayLength = body.radius * 1.1f;
         int layerMask = 1 << 8;
-        RaycastHit2D ray = Physics2D.Raycast(gameObject.transform.position, Vector2.down, rayLength, ~layerMask);
-        Debug.DrawRay(transform.position, Vector3.down * rayLength, Color.magenta, 0f, false);
 
-        if (ray.collider != null)
+        float sideRaysOffset = 0.3f;
+
+        RaycastHit2D rayCenter = Physics2D.Raycast(gameObject.transform.position, Vector2.down, rayLength, ~layerMask);
+        RaycastHit2D rayLeft = Physics2D.Raycast(new Vector2(gameObject.transform.position.x - sideRaysOffset, gameObject.transform.position.y), Vector2.down, rayLength, ~layerMask);
+        RaycastHit2D rayRight = Physics2D.Raycast(new Vector2(gameObject.transform.position.x + sideRaysOffset, gameObject.transform.position.y), Vector2.down, rayLength, ~layerMask);
+
+        Debug.DrawRay(transform.position, Vector3.down * rayLength, Color.magenta, 0f, false);
+        Debug.DrawRay(new Vector2(gameObject.transform.position.x - sideRaysOffset, gameObject.transform.position.y), Vector3.down * rayLength, Color.magenta, 0f, false);
+        Debug.DrawRay(new Vector2(gameObject.transform.position.x + sideRaysOffset, gameObject.transform.position.y), Vector3.down * rayLength, Color.magenta, 0f, false);
+
+        if (rayCenter.collider != null || rayRight.collider != null || rayLeft.collider != null)
         {
             return true;
         }

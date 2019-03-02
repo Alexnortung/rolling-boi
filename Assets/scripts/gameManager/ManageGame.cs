@@ -5,15 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class ManageGame : MonoBehaviour
 {
-
-    [SerializeField] private GameObject player;
     [SerializeField] public bool GameWon { get; set; }
-
-    [SerializeField] private int currentLevel;
 
     [SerializeField] public bool IsLevelWon = false;
 
-    [SerializeField] public bool HasGameBegun = true;
+    [SerializeField] public bool HasGameBegun = false;
 
     public float Timer = 0;
 
@@ -23,11 +19,6 @@ public class ManageGame : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
     }
-
-	void Start () {
-		player = GameObject.FindGameObjectWithTag("Player");
-	    currentLevel = 0;
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -37,15 +28,19 @@ public class ManageGame : MonoBehaviour
 	        IsLevelWon = false;
 	    }
 
-	    Timer += Time.deltaTime;
+	    if (HasGameBegun)
+	    {
+	        Timer += Time.deltaTime;
+        }
+	    
 	}
 
     private void ChangeLevel()
     {
-        if (currentLevel <= SceneManager.sceneCountInBuildSettings)
+
+        if (SceneManager.GetActiveScene().buildIndex + 1 <= SceneManager.sceneCountInBuildSettings - 1)
         {
-            SceneManager.LoadScene(currentLevel, LoadSceneMode.Single);
-            currentLevel++;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
         }
         else
         {
@@ -62,7 +57,6 @@ public class ManageGame : MonoBehaviour
     public void SelectLevel(int levelInt)
     {
         SceneManager.LoadScene(levelInt, LoadSceneMode.Single);
-        currentLevel = levelInt + 1;
     }
 
     
