@@ -30,4 +30,9 @@ public class follow_player_enemy : enemy {
             rb2d.velocity = new Vector2(0, rb2d.velocity.y);
         }
 	}
+
+    public void CallDeath()
+    {
+        die();
+    }
 }

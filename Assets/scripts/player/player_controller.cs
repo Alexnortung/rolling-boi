@@ -95,7 +95,21 @@ public class player_controller : MonoBehaviour {
                 Debug.Log("collided with enemy");
                 if (isOnFire)
                 {
-                    col.collider.gameObject.GetComponent<enemy>().die();
+                    if (col.collider.gameObject.GetComponent<enemy>() != null)
+                    {
+                        col.collider.gameObject.GetComponent<enemy>().die();
+                    }
+                    else if (col.gameObject.GetComponent<follow_player_enemy>() != null)
+                    {
+                        col.gameObject.GetComponent<follow_player_enemy>().CallDeath();
+                        Debug.Log("in here");
+                    }
+                    else if (col.collider.gameObject.GetComponent<JumpingEnemy>() != null)
+                    {
+                        col.collider.gameObject.GetComponent<JumpingEnemy>().die();
+                    }
+                    
+
                 } else
                 {
                     gameManager.RestartLevel();
