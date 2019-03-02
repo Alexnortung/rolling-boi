@@ -26,7 +26,7 @@ public class ManageGame : MonoBehaviour
 
 	void Start () {
 		player = GameObject.FindGameObjectWithTag("Player");
-	    currentLevel = 1;
+	    currentLevel = 0;
 	}
 	
 	// Update is called once per frame
@@ -42,17 +42,27 @@ public class ManageGame : MonoBehaviour
 
     private void ChangeLevel()
     {
-        if (currentLevel <= SceneManager.sceneCountInBuildSettings - 1)
+        if (currentLevel <= SceneManager.sceneCountInBuildSettings)
         {
             SceneManager.LoadScene(currentLevel, LoadSceneMode.Single);
             currentLevel++;
+        }
+        else
+        {
+            SceneManager.LoadScene(0, LoadSceneMode.Single);
         }
 
     }
 
     public void RestartLevel()
     {
-        Application.LoadLevel(Application.loadedLevel);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
+    }
+
+    public void SelectLevel(int levelInt)
+    {
+        SceneManager.LoadScene(levelInt, LoadSceneMode.Single);
+        currentLevel = levelInt + 1;
     }
 
     

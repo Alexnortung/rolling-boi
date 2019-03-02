@@ -13,11 +13,12 @@ public class Goal : MonoBehaviour
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ManageGame>();
     }
 
-    public void OnTriggerEnter(Collider col)
+    public void OnTriggerEnter2D(Collider2D col)
     {
         if (col.transform.tag == "Player")
         {
             gameManager.IsLevelWon = true;
+            Debug.Log("Triggered");
         }
     }
 }
