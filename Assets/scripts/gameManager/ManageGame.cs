@@ -70,7 +70,7 @@ public class ManageGame : MonoBehaviour
 
         if (levelInt > 1)
         {
-            HasGameBegun = !HasGameBegun;
+            
         }
     }
 
