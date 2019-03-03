@@ -32,7 +32,7 @@ public class enemy : MonoBehaviour {
         sprite = gameObject.GetComponent<SpriteRenderer>();
         circleCollider = GetComponent<CircleCollider2D>();
 
-        if(isReversedGravity == true)
+        if(isReversedGravity)
         {
             ReverseGravity();
         } else

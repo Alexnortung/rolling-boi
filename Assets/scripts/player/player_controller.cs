@@ -279,7 +279,7 @@ public class player_controller : MonoBehaviour {
     private bool IsGrounded()
     {
         float rayLength = body.radius * 1.1f;
-        int layerMask = 1 << 8;
+        int layerMask = 1 << 8 | 1 << 10;
 
         float sideRaysOffset = 0.3f;
 

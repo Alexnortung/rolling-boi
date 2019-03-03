@@ -33,6 +33,7 @@ public class JumpingEnemy : enemy
         if (distanceToPlayer < AwakeDistance)
         {
             bool isGrounded = IsGrounded();
+            Debug.Log(isGrounded);
 
             if (player.transform.position.x < gameObject.transform.position.x && isFacingRight)
             {
@@ -59,6 +60,7 @@ public class JumpingEnemy : enemy
 
     private void jumpingMovement(bool isGrounded)
     {
+
         float movementX = -movementSpeed;
 
         if (isFacingRight)
@@ -66,23 +68,49 @@ public class JumpingEnemy : enemy
             movementX = movementSpeed;
         }
 
-        if (rb2d.velocity.y > 0)
+
+        if (isReversedGravity)
         {
-            spRenderer.sprite = JumpingSprites[3];
-        }
-        else if (rb2d.velocity.y < 0)
-        {
-            spRenderer.sprite = JumpingSprites[2];
+            if (rb2d.velocity.y > 0)
+            {
+                spRenderer.sprite = JumpingSprites[2];
+            }
+            else if (rb2d.velocity.y < 0)
+            {
+                spRenderer.sprite = JumpingSprites[3];
+            }
+            else
+            {
+                spRenderer.sprite = JumpingSprites[1];
+            }
+
+            gameObject.transform.rotation = new Quaternion(0,0,180,0);
+            spRenderer.flipY = false;
         }
         else
         {
-            spRenderer.sprite = JumpingSprites[1];
+            if (rb2d.velocity.y > 0)
+            {
+                spRenderer.sprite = JumpingSprites[3];
+            }
+            else if (rb2d.velocity.y < 0)
+            {
+                spRenderer.sprite = JumpingSprites[2];
+            }
+            else
+            {
+                spRenderer.sprite = JumpingSprites[1];
+            }
+
+            gameObject.transform.rotation = new Quaternion(0, 0, 0, 0);
+            spRenderer.flipY = false;
         }
 
         if (isGrounded && gameManager.Timer - lastGroundHit > xThredshold)
         {
-            rb2d.AddForce(new Vector2(0, 10), ForceMode2D.Impulse);
+            rb2d.AddForce((isReversedGravity ? Vector2.down * 5 : Vector2.up * 5), ForceMode2D.Impulse);
             lastGroundHit = gameManager.Timer;
+            Debug.Log("x: " + rb2d.velocity.x + " y: " + rb2d.velocity.y);
         }
 
         if (player.transform.position.x > transform.position.x - (xThredshold / 2) &&
@@ -100,10 +128,10 @@ public class JumpingEnemy : enemy
 
     private bool IsGrounded()
     {
-        float rayLength = circleCollider.radius * 1.1f;
+        float rayLength = circleCollider.radius * 1.1f; 
         int layerMask = 1 << 9 | 1 << 10;
-        RaycastHit2D ray = Physics2D.Raycast(gameObject.transform.position, Vector2.down, rayLength, ~layerMask);
-        Debug.DrawRay(transform.position, Vector3.down * rayLength, Color.magenta, 0f, false);
+        RaycastHit2D ray = Physics2D.Raycast(gameObject.transform.position, isReversedGravity ? Vector2.up : Vector2.down, rayLength, ~layerMask);
+        Debug.DrawRay(transform.position, (isReversedGravity ? Vector2.up : Vector2.down) * rayLength, Color.magenta, 0f, false);
 
         if (ray.collider != null)
         {

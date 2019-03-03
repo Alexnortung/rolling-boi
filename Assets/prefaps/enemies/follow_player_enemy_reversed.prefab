@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 50814391818749278}
   - component: {fileID: 114807014401474964}
   m_Layer: 0
-  m_Name: follow_player_enemy 1
+  m_Name: follow_player_enemy_reversed
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

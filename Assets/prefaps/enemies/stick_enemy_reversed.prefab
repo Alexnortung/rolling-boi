@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 50508836296050058}
   - component: {fileID: 114237761642327586}
   m_Layer: 0
-  m_Name: stick_enemy 1
+  m_Name: stick_enemy_reversed
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
