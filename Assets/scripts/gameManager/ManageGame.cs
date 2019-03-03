@@ -9,7 +9,7 @@ public class ManageGame : MonoBehaviour
 
     [SerializeField] public bool IsLevelWon = false;
 
-    [SerializeField] public bool HasGameBegun = false;
+    [SerializeField] public bool HasGameBegun;
 
     [SerializeField] public int baddiesKilled = 0;
 
@@ -36,7 +36,7 @@ public class ManageGame : MonoBehaviour
 	    {
 	        Timer += Time.deltaTime;
         }
-	    
+
 	}
 
     private void ChangeLevel()
@@ -60,12 +60,18 @@ public class ManageGame : MonoBehaviour
 
     public void SelectLevel(int levelInt)
     {
+        Debug.Log(levelInt > 1);
         if (levelInt > 1)
         {
-            HasGameBegun = true;
+            HasGameBegun = !HasGameBegun;
         }
 
         SceneManager.LoadScene(levelInt, LoadSceneMode.Single);
+
+        if (levelInt > 1)
+        {
+            HasGameBegun = !HasGameBegun;
+        }
     }
 
     public int GetCurrentLevel()
@@ -75,12 +81,12 @@ public class ManageGame : MonoBehaviour
 
     public void OpenGraphics()
     {
-        
+
     }
 
     public void CloseGraphics()
     {
-        
+
     }
 
     public void killBaddie()
@@ -88,5 +94,5 @@ public class ManageGame : MonoBehaviour
         baddiesKilled++;
     }
 
-    
+
 }
