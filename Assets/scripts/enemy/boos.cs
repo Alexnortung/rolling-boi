@@ -14,12 +14,15 @@ public class boos : MonoBehaviour {
     public GameObject[] auras;
     public float castTime = 7;
     public GameObject portalPrefab;
+    public GameObject tpPortalPrefab;
     public float portalSpawnRadiusMax = 5;
     public float portalSpawnRadiusMin = 3;
+    public float moveToPlayerInterval = 5;
 
     private List<GameObject> instantiatedAuras;
     private Random rnd = new Random();
     private float lastTimeAttack = 0;
+    private float lastMoveToPlayer = 0;
     
 
 
@@ -28,6 +31,7 @@ public class boos : MonoBehaviour {
     void Start () {
         manageGame = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ManageGame>();
         lastTimeAttack = manageGame.Timer;
+        lastMoveToPlayer = manageGame.Timer;
         Player_Controller = player.GetComponent<player_controller>();
 
 
@@ -37,6 +41,10 @@ public class boos : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+        if (moveToPlayerInterval < manageGame.Timer - lastMoveToPlayer)
+        {
+            moveToPlayerRadius();
+        }
 
         if(castTime < (manageGame.Timer - lastTimeAttack))
         {
@@ -110,5 +118,17 @@ public class boos : MonoBehaviour {
     void moveToPlayerRadius()
     {
 
+        Vector2 newPosition = Vector2.up;
+        newPosition *= Random.Range(portalSpawnRadiusMin, portalSpawnRadiusMax);
+        float angle = Random.Range(0, 180) * Mathf.Deg2Rad;
+
+        newPosition = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * newPosition.magnitude;
+        newPosition = newPosition + (Vector2)player.transform.position + new Vector2(portalSpawnRadiusMin, 0);
+
+        Instantiate(tpPortalPrefab, gameObject.transform.position, Quaternion.identity);
+        Instantiate(tpPortalPrefab, newPosition, Quaternion.identity);
+        gameObject.transform.position = newPosition;
+
+        lastMoveToPlayer = manageGame.Timer;
     }
 }
