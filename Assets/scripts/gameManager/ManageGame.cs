@@ -9,7 +9,7 @@ public class ManageGame : MonoBehaviour
 
     [SerializeField] public bool IsLevelWon = false;
 
-    [SerializeField] public bool HasGameBegun = false;
+    [SerializeField] public bool HasGameBegun;
 
     [SerializeField] public int baddiesKilled = 0;
 
@@ -21,7 +21,7 @@ public class ManageGame : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
         GameObject other = GameObject.FindGameObjectWithTag("GameManager");
-        if (other != null && other != gameObject) Destroy(gameObject);
+        //if (other != null && other != gameObject) Destroy(gameObject);
     }
 
 	// Update is called once per frame
@@ -60,12 +60,18 @@ public class ManageGame : MonoBehaviour
 
     public void SelectLevel(int levelInt)
     {
+        Debug.Log(levelInt > 1);
         if (levelInt > 1)
         {
-            HasGameBegun = true;
+            HasGameBegun = !HasGameBegun;
         }
 
         SceneManager.LoadScene(levelInt, LoadSceneMode.Single);
+
+        if (levelInt > 1)
+        {
+            HasGameBegun = !HasGameBegun;
+        }
     }
 
     public int GetCurrentLevel()
