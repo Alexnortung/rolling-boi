@@ -16,6 +16,7 @@ public class JumpingEnemy : enemy
     [SerializeField] private float UnstuckTimer = 3;
     [SerializeField] private float AwakeDistance = 10;
     [SerializeField] private float distanceToPlayer;
+    [SerializeField] private float JumpHeight = 10;
     private float timeForTurn = 1;
 
     void Start()
@@ -74,6 +75,7 @@ public class JumpingEnemy : enemy
             if (rb2d.velocity.y > 0)
             {
                 spRenderer.sprite = JumpingSprites[2];
+                lastGroundHit = gameManager.Timer;
             }
             else if (rb2d.velocity.y < 0)
             {
@@ -96,6 +98,7 @@ public class JumpingEnemy : enemy
             else if (rb2d.velocity.y < 0)
             {
                 spRenderer.sprite = JumpingSprites[2];
+                lastGroundHit = gameManager.Timer;
             }
             else
             {
@@ -106,9 +109,9 @@ public class JumpingEnemy : enemy
             spRenderer.flipY = false;
         }
 
-        if (isGrounded && gameManager.Timer - lastGroundHit > xThredshold)
+        if (isGrounded && gameManager.Timer - lastGroundHit > xThredshold && rb2d.velocity.x < 1 && rb2d.velocity.y < 1)
         {
-            rb2d.AddForce((isReversedGravity ? Vector2.down * 5 : Vector2.up * 5), ForceMode2D.Impulse);
+            rb2d.AddForce((isReversedGravity ? Vector2.down * JumpHeight : Vector2.up * JumpHeight), ForceMode2D.Impulse);
             lastGroundHit = gameManager.Timer;
             Debug.Log("x: " + rb2d.velocity.x + " y: " + rb2d.velocity.y);
         }
