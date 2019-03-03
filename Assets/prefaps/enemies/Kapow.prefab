@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   kapow_anim_time: 0.5
+  enemyDeathSound: {fileID: 8300000, guid: ada6beac62237264d90b3bee2b92eca0, type: 3}
 --- !u!212 &212647538994751550
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -5,6 +5,9 @@ using UnityEngine;
 public class kapow_anim : MonoBehaviour {
 
     public float kapow_anim_time = 0.5f;
+    public AudioClip enemyDeathSound;
+
+    private AudioSource enemyDeathSource;
 
 	// Use this for initialization
 	void Start () {
@@ -19,8 +22,20 @@ public class kapow_anim : MonoBehaviour {
 
     IEnumerator disappear()
     {
-        yield return new WaitForSeconds(kapow_anim_time);
+        if (enemyDeathSound != null)
+        {
+            enemyDeathSource = gameObject.AddComponent<AudioSource>();
+            enemyDeathSource.clip = enemyDeathSound;
+            enemyDeathSource.Play();
+            yield return new WaitForSeconds(enemyDeathSource.clip.length);
+        } else
+        {
+            yield return new WaitForSeconds(kapow_anim_time);
+            
+        }
+
         Destroy(gameObject);
+
     }
 
 }
