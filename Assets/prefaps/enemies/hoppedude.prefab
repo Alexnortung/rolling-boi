@@ -139,7 +139,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   kapowPrefab: {fileID: 0}
-  isReversedGravity: 1
+  isReversedGravity: 0
   normalGravityScale: 1
   spRenderer: {fileID: 212647538994751550, guid: fe8023c47ec142544a34c5a7e7740812,
     type: 2}
