@@ -13,8 +13,8 @@ public class Destroy_self_after_time : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+	    transform.Rotate(Vector3.forward, 2);
+    }
 
     IEnumerator destroySelf()
     {

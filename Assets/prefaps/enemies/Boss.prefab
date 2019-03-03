@@ -63,11 +63,14 @@ MonoBehaviour:
   - {fileID: 1936120519224276, guid: d026b03a807b4874daf181439d5be3eb, type: 2}
   - {fileID: 1190406089405040, guid: 49319a0f92b5f9142ba965ee07b4c4df, type: 2}
   - {fileID: 1098243402488726, guid: 94ce6842ecfeba54c88b699e873d16f7, type: 2}
-  castTime: 4
+  castTime: 5.5
   portalPrefab: {fileID: 1004419377933966, guid: 827310dd95009c8439cdce4189124d2a,
+    type: 2}
+  tpPortalPrefab: {fileID: 1740475085764566, guid: fe78b9c355aa37a45ae9053baeb24e64,
     type: 2}
   portalSpawnRadiusMax: 5
   portalSpawnRadiusMin: 3
+  moveToPlayerInterval: 5
 --- !u!212 &212117587430038436
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -101,7 +104,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: b8b086feab4bb18469b912f8bd83e521, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
