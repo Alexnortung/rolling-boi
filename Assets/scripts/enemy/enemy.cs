@@ -17,8 +17,11 @@ public class enemy : MonoBehaviour {
     public LayerMask playerLayerMask = 1 << 8;
     public Transform kapowPrefab;
 
-	// Use this for initialization
-	void Start () {
+    public bool isReversedGravity = false;
+    public float normalGravityScale = 0.7f;
+
+    // Use this for initialization
+    void Start () {
         defaultContructor();
         
     }
@@ -27,8 +30,16 @@ public class enemy : MonoBehaviour {
     {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         sprite = gameObject.GetComponent<SpriteRenderer>();
-        sprite.flipX = isFacingRight;
         circleCollider = GetComponent<CircleCollider2D>();
+
+        if(isReversedGravity == true)
+        {
+            ReverseGravity();
+        } else
+        {
+            NormalGravity();
+        }
+
     }
 	
 	// Update is called once per frame
@@ -58,7 +69,7 @@ public class enemy : MonoBehaviour {
     protected void turnAround()
     {
         isFacingRight = !isFacingRight;
-        sprite.flipX = isFacingRight;
+        sprite.flipX = !sprite.flipX;
     }
 
     public void die()
@@ -100,5 +111,19 @@ public class enemy : MonoBehaviour {
         }
 
         return false;
+    }
+
+    public void ReverseGravity()
+    {
+        isReversedGravity = true;
+        rb2d.gravityScale = -normalGravityScale;
+        sprite.flipY = true;
+    }
+
+    public void NormalGravity()
+    {
+        isReversedGravity = false;
+        rb2d.gravityScale = normalGravityScale;
+        sprite.flipY = false;
     }
 }
