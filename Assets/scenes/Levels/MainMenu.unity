@@ -157,6 +157,11 @@ Prefab:
       propertyPath: graphics
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 114657838929523740, guid: a258900e678aaf244812b7458e523dbf,
+        type: 2}
+      propertyPath: HasGameBegun
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a258900e678aaf244812b7458e523dbf, type: 2}
   m_IsPrefabParent: 0
