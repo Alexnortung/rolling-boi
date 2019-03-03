@@ -435,11 +435,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 24
       objectReference: {fileID: 0}
-    - target: {fileID: 224330770500217612, guid: 6a5c77624c26f82408eb46f7d3cb1e1d,
-        type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1930395424356164, guid: 6a5c77624c26f82408eb46f7d3cb1e1d, type: 2}
       propertyPath: m_Name
       value: Map (1)
