@@ -13,6 +13,8 @@ public class ManageGame : MonoBehaviour
 
     [SerializeField] public int baddiesKilled = 0;
 
+    private int levelStarted = 1;
+
     public float Timer = 0;
 
 
@@ -66,12 +68,10 @@ public class ManageGame : MonoBehaviour
             HasGameBegun = !HasGameBegun;
         }
 
+        levelStarted = levelInt - 1;
+
         SceneManager.LoadScene(levelInt, LoadSceneMode.Single);
 
-        if (levelInt > 1)
-        {
-            
-        }
     }
 
     public int GetCurrentLevel()
