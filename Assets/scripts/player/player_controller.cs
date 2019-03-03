@@ -16,7 +16,11 @@ public class player_controller : MonoBehaviour {
 
     public float normalGravityScale = 0.7f;
 
+    public bool isReversedGravity = false;
+
     public float fireAngularVel = 10f;
+
+    private bool _alienBeamBehaviourActive = false;
 
 
 
@@ -83,7 +87,15 @@ public class player_controller : MonoBehaviour {
         // Debug.Log(rb2d.velocity);
 
         setFireIfAngularVel();
-	}
+
+
+	    if (_alienBeamBehaviourActive)
+	    {
+	        rb2d.velocity = new Vector2(rb2d.velocity.x, 5);
+        }
+	    
+
+    }
 
     public void OnCollisionEnter2D(Collision2D col)
     {
@@ -185,6 +197,7 @@ public class player_controller : MonoBehaviour {
         {
             case "AlienBeam":
                 AlienBeamBehaviour();
+                _alienBeamBehaviourActive = true;
                 break;
             default:
                 break;
@@ -197,6 +210,7 @@ public class player_controller : MonoBehaviour {
         {
             case "AlienBeam":
                 ReverseAlienBeamBehaviour();
+                _alienBeamBehaviourActive = false;
                 break;
             default:
                 break;
@@ -249,4 +263,15 @@ public class player_controller : MonoBehaviour {
     }
 
 
+    public void ReverseGravity()
+    {
+        isReversedGravity = true;
+        rb2d.gravityScale = -normalGravityScale;
+    }
+
+    public void NormalGravity()
+    {
+        isReversedGravity = false;
+        rb2d.gravityScale = normalGravityScale;
+    }
 }

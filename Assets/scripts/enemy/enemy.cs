@@ -86,10 +86,12 @@ public class enemy : MonoBehaviour {
 
         // should not turn if player
 
+        int obstaclesLayer = 1 << 10;
 
+        int layermask = playerLayerMask | obstaclesLayer;
 
         Vector2 rayOrigin = new Vector2(rayOriginX, rayOriginY);
-        RaycastHit2D ray = Physics2D.Raycast(rayOrigin, facingVector, rayLength, ~playerLayerMask);
+        RaycastHit2D ray = Physics2D.Raycast(rayOrigin, facingVector, rayLength, ~layermask);
         Debug.DrawRay(rayOrigin, facingVector * rayLength, Color.magenta, 0f, false);
 
         if (ray.collider != null)

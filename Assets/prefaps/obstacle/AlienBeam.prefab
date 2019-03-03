@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4201507577483266}
   - component: {fileID: 212455603639538770}
   - component: {fileID: 61962043183746998}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: AlienBeam
   m_TagString: AlienBeam
   m_Icon: {fileID: 0}

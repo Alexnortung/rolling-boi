@@ -19,7 +19,7 @@ public class ManageGame : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
     }
-	
+
 	// Update is called once per frame
 	void Update () {
 	    if (IsLevelWon)
@@ -57,6 +57,16 @@ public class ManageGame : MonoBehaviour
     public void SelectLevel(int levelInt)
     {
         SceneManager.LoadScene(levelInt, LoadSceneMode.Single);
+    }
+
+    public void OpenGraphics()
+    {
+        
+    }
+
+    public void CloseGraphics()
+    {
+        
     }
 
     

@@ -101,7 +101,7 @@ public class JumpingEnemy : enemy
     private bool IsGrounded()
     {
         float rayLength = circleCollider.radius * 1.1f;
-        int layerMask = 1 << 9;
+        int layerMask = 1 << 9 | 1 << 10;
         RaycastHit2D ray = Physics2D.Raycast(gameObject.transform.position, Vector2.down, rayLength, ~layerMask);
         Debug.DrawRay(transform.position, Vector3.down * rayLength, Color.magenta, 0f, false);
 
@@ -116,7 +116,7 @@ public class JumpingEnemy : enemy
     private void Unstuck()
     {
         float rayLength = circleCollider.radius * 1.3f;
-        int layerMask = 1 << 9;
+        int layerMask = 1 << 9 | 1 << 10;
         RaycastHit2D rayRight = Physics2D.Raycast(gameObject.transform.position, Vector2.right, rayLength, ~layerMask);
         Debug.DrawRay(transform.position, Vector3.right * rayLength, Color.magenta, 0f, false);
         RaycastHit2D rayLeft = Physics2D.Raycast(gameObject.transform.position, Vector2.left, rayLength, ~layerMask);

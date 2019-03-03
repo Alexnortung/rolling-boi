@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212101744068475702}
   - component: {fileID: 61195498992826728}
   - component: {fileID: 114772645111121216}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RemoveReverseMovement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
