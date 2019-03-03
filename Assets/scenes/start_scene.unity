@@ -211,6 +211,31 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a258900e678aaf244812b7458e523dbf, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &173504170 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1190406089405040, guid: 49319a0f92b5f9142ba965ee07b4c4df,
+    type: 2}
+  m_PrefabInternal: {fileID: 1266081564}
+--- !u!50 &173504171
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 173504170}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1001 &252568176
 Prefab:
   m_ObjectHideFlags: 0
@@ -266,7 +291,7 @@ Prefab:
     - target: {fileID: 114031650313534316, guid: 9209eb575d4846f4dbf00c34069dc953,
         type: 2}
       propertyPath: isReversedGravity
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9209eb575d4846f4dbf00c34069dc953, type: 2}
@@ -465,6 +490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsLevelWon: 0
   HasGameBegun: 1
+  baddiesKilled: 0
   Timer: 0
 --- !u!4 &1472403240 stripped
 Transform:
