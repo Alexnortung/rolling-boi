@@ -26,8 +26,10 @@ public class Portal : MonoBehaviour {
 	void Update () {
 		if (goombasToCreate == goombaCounter)
         {
-            Destroy(gameObject);
+            Destroy(gameObject, 2);
         }
+
+        transform.Rotate(Vector3.forward, 2);
 
 	}
 
