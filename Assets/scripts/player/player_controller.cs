@@ -149,6 +149,8 @@ public class player_controller : MonoBehaviour {
                     }
                     lastKapowTime = gameManager.Timer;
 
+                    gameManager.killBaddie();
+
                 } else
                 {
                     StartCoroutine( Die(null));
