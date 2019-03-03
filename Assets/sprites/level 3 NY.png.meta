@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 48194d898024859459b35f8bc1fe8c9b
+=======
+guid: 292db960020ec8043a9e69d415eec33d
+>>>>>>> added sounds to enemy death and death on spikes
 TextureImporter:
   fileIDToRecycleName: {}
   externalObjects: {}

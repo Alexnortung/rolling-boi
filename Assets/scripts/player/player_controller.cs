@@ -12,6 +12,7 @@ public class player_controller : MonoBehaviour {
     public float maxVelocityX = 5;
     public float fireVelocity = 3.75f;
     public float timeDiffFireVel = 0.35f;
+
     private float lastKapowTime = 0;
 
     public float normalGravityScale = 0.7f;
@@ -32,7 +33,14 @@ public class player_controller : MonoBehaviour {
     private bool hasReachedFireVel = false;
     private float timeReachedFireVel = 0;
     private bool isOnFire = false;
-    
+    private bool isDead = false;
+
+    public AudioClip avSoundClip;
+    public AudioClip spikeSoundClip;
+
+    private AudioSource avSound;
+    private AudioSource spikeSound;
+
 
     [SerializeField] public bool isReversed = false;
     [SerializeField] public bool isAbleToWalkOnSpikes = false;
@@ -48,6 +56,11 @@ public class player_controller : MonoBehaviour {
         jumpKeys.Add(KeyCode.UpArrow);
 	    gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<ManageGame>();
         fire = transform.GetChild(0).gameObject;
+
+        avSound = gameObject.AddComponent<AudioSource>();
+        avSound.clip = avSoundClip;
+        spikeSound = gameObject.AddComponent<AudioSource>();
+        spikeSound.clip = spikeSoundClip;
         
 	}
 
@@ -102,7 +115,11 @@ public class player_controller : MonoBehaviour {
         switch (col.collider.tag)
         {
             case "Spikes":
-                if(!isAbleToWalkOnSpikes) gameManager.RestartLevel();
+                if (!isAbleToWalkOnSpikes)
+                {
+
+                    StartCoroutine(Die(spikeSound));
+                }
                 break;
             case "Enemy":
                 Debug.Log("collided with enemy");
@@ -127,13 +144,27 @@ public class player_controller : MonoBehaviour {
 
                 } else
                 {
-                    gameManager.RestartLevel();
+                    StartCoroutine( Die(null));
                 }
                 
                 break;
             default:
                 break;;
         }
+    }
+
+    IEnumerator Die(AudioSource deathSound)
+    {
+        Debug.Log("died");
+        if (deathSound != null)
+        {
+            rb2d.bodyType = RigidbodyType2D.Static;
+            deathSound.Play();
+            yield return new WaitForSeconds(deathSound.clip.length);
+        }
+
+        gameManager.RestartLevel();
+
     }
 
     void showFire()
@@ -158,7 +189,7 @@ public class player_controller : MonoBehaviour {
     void setFireIfAngularVel()
     {
         bool lastKapowtimeFire = false;
-        if (Mathf.Abs(lastKapowTime - gameManager.Timer) < timeDiffFireVel + 0.05f && lastKapowTime != 0)
+        if (Mathf.Abs(lastKapowTime - gameManager.Timer) < timeDiffFireVel + 1f && lastKapowTime != 0)
         {
             hasReachedFireVel = true;
             timeReachedFireVel = lastKapowTime;
