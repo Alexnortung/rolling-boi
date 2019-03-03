@@ -18,6 +18,8 @@ public class ManageGame : MonoBehaviour
     void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
+        GameObject other = GameObject.FindGameObjectWithTag("GameManager");
+        if (other != null && other != gameObject) Destroy(gameObject);
     }
 
 	// Update is called once per frame
