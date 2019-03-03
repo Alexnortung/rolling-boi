@@ -23,6 +23,8 @@ GameObject:
   - component: {fileID: 114031650313534316}
   - component: {fileID: 50327545550214052}
   - component: {fileID: 58292279394767166}
+  - component: {fileID: 61060013756667236}
+  - component: {fileID: 95984109748709374}
   m_Layer: 9
   m_Name: hoppedude
   m_TagString: Enemy
@@ -37,8 +39,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1451627143707570}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.37, y: -0.42, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -16042.11, y: 33620.23, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -75,9 +77,51 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.104533195, y: 0.04640913}
+  m_Offset: {x: 0.104533195, y: 0.263456}
   serializedVersion: 2
-  m_Radius: 0.68362784
+  m_Radius: 0.466581
+--- !u!61 &61060013756667236
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1451627143707570}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.15722656, y: -0.37890625}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.97, y: 1.62}
+    newSize: {x: 2.97, y: 1.62}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.6464844, y: 0.4921875}
+  m_EdgeRadius: 0
+--- !u!95 &95984109748709374
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1451627143707570}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114031650313534316
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -94,7 +138,18 @@ MonoBehaviour:
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 256
+  kapowPrefab: {fileID: 0}
+  spRenderer: {fileID: 212647538994751550, guid: fe8023c47ec142544a34c5a7e7740812,
+    type: 2}
+  JumpingSprites:
+  - {fileID: 21300000, guid: 41bda48ab5b2d514ea40ba873dca6e3d, type: 3}
+  - {fileID: 21300000, guid: 3e2374222c78e0b408c70d9cdf446683, type: 3}
+  - {fileID: 21300000, guid: 978b1b075f1d8664ea46ba7aea8ecaaf, type: 3}
+  - {fileID: 21300000, guid: cbfddbdce4157b0469cd2ac5aec7ee25, type: 3}
   lastGroundHit: 0
+  UnstuckTimer: 3
+  AwakeDistance: 20
+  distanceToPlayer: 0
 --- !u!212 &212490547652675590
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -129,7 +184,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 02a04ec6ad224d040ad76d6b10f3c10a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 41bda48ab5b2d514ea40ba873dca6e3d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

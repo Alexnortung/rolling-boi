@@ -10,8 +10,8 @@ public class JumpingEnemy : enemy
     private ManageGame gameManager;
     [SerializeField] private SpriteRenderer spRenderer;
     [SerializeField] private Sprite[] JumpingSprites;
-
-    private float xThredshold = 1f;
+    
+    public float xThredshold = 1f;
     [SerializeField] private float lastGroundHit = 1;
     [SerializeField] private float UnstuckTimer = 3;
     [SerializeField] private float AwakeDistance = 10;
