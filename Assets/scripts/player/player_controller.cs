@@ -94,7 +94,7 @@ public class player_controller : MonoBehaviour {
 
         if (grounded && IfOneOfMultipleKeyDown(jumpKeys))
         {
-            rb2d.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
+            rb2d.AddForce( (isReversedGravity ? Vector2.down : Vector2.up) * jumpHeight, ForceMode2D.Impulse);
         }
 
         // Debug.Log(rb2d.velocity);
@@ -104,7 +104,9 @@ public class player_controller : MonoBehaviour {
 
 	    if (_alienBeamBehaviourActive)
 	    {
-	        rb2d.velocity = new Vector2(rb2d.velocity.x, 5);
+            float yMultiplier = 1;
+            if (isReversedGravity) yMultiplier = -1;
+	        rb2d.velocity = new Vector2(rb2d.velocity.x, 5 * yMultiplier);
         }
 	    
 
@@ -170,6 +172,10 @@ public class player_controller : MonoBehaviour {
     void showFire()
     {
         float fireDir = Mathf.Sign(rb2d.angularVelocity);
+        if(isReversedGravity)
+        {
+            fireDir *= -1;
+        }
         fire.transform.localScale = new Vector3(-0.3f * fireDir, 0.3f, -0.5f);
         float fireRotation = -transform.eulerAngles.z * Mathf.Deg2Rad;
         fire.transform.eulerAngles = new Vector3(0, 0, fireRotation);
@@ -255,7 +261,7 @@ public class player_controller : MonoBehaviour {
 
     private void ReverseAlienBeamBehaviour()
     {
-        rb2d.gravityScale = normalGravityScale;
+        rb2d.gravityScale = isReversedGravity ? -normalGravityScale : normalGravityScale;
     }
 
     private bool IfOneOfMultipleKeyDown(List<KeyCode> list)
@@ -277,13 +283,21 @@ public class player_controller : MonoBehaviour {
 
         float sideRaysOffset = 0.3f;
 
-        RaycastHit2D rayCenter = Physics2D.Raycast(gameObject.transform.position, Vector2.down, rayLength, ~layerMask);
-        RaycastHit2D rayLeft = Physics2D.Raycast(new Vector2(gameObject.transform.position.x - sideRaysOffset, gameObject.transform.position.y), Vector2.down, rayLength, ~layerMask);
-        RaycastHit2D rayRight = Physics2D.Raycast(new Vector2(gameObject.transform.position.x + sideRaysOffset, gameObject.transform.position.y), Vector2.down, rayLength, ~layerMask);
+        Vector2 rayDirection = Vector2.down;
+        if (isReversedGravity)
+        {
+            rayDirection = Vector2.up;
+        }
 
-        Debug.DrawRay(transform.position, Vector3.down * rayLength, Color.magenta, 0f, false);
-        Debug.DrawRay(new Vector2(gameObject.transform.position.x - sideRaysOffset, gameObject.transform.position.y), Vector3.down * rayLength, Color.magenta, 0f, false);
-        Debug.DrawRay(new Vector2(gameObject.transform.position.x + sideRaysOffset, gameObject.transform.position.y), Vector3.down * rayLength, Color.magenta, 0f, false);
+        RaycastHit2D rayCenter = Physics2D.Raycast(gameObject.transform.position, rayDirection, rayLength, ~layerMask);
+        RaycastHit2D rayLeft = Physics2D.Raycast(new Vector2(gameObject.transform.position.x - sideRaysOffset, gameObject.transform.position.y), rayDirection, rayLength, ~layerMask);
+        RaycastHit2D rayRight = Physics2D.Raycast(new Vector2(gameObject.transform.position.x + sideRaysOffset, gameObject.transform.position.y), rayDirection, rayLength, ~layerMask);
+
+
+
+        Debug.DrawRay(transform.position, rayDirection * rayLength, Color.magenta, 0f, false);
+        Debug.DrawRay(new Vector2(gameObject.transform.position.x - sideRaysOffset, gameObject.transform.position.y), rayDirection * rayLength, Color.magenta, 0f, false);
+        Debug.DrawRay(new Vector2(gameObject.transform.position.x + sideRaysOffset, gameObject.transform.position.y), rayDirection * rayLength, Color.magenta, 0f, false);
 
         if (rayCenter.collider != null || rayRight.collider != null || rayLeft.collider != null)
         {
