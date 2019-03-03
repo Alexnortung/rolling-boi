@@ -21,7 +21,7 @@ public class enemy : MonoBehaviour {
     public float normalGravityScale = 0.7f;
 
     // Use this for initialization
-    void Start () {
+    void Awake () {
         defaultContructor();
         
     }
@@ -66,10 +66,14 @@ public class enemy : MonoBehaviour {
         rb2d.velocity = new Vector2(newMovementX, rb2d.velocity.y);
     }
 
-    protected void turnAround()
+    public void turnAround()
     {
-        isFacingRight = !isFacingRight;
-        sprite.flipX = !sprite.flipX;
+        if(sprite != null)
+        {
+            isFacingRight = !isFacingRight;
+            sprite.flipX = !sprite.flipX;
+        }
+        
     }
 
     public void die()
