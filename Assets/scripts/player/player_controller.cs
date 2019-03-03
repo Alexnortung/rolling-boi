@@ -37,9 +37,11 @@ public class player_controller : MonoBehaviour {
 
     public AudioClip avSoundClip;
     public AudioClip spikeSoundClip;
+    public AudioClip fireSoundClip;
 
     private AudioSource avSound;
     private AudioSource spikeSound;
+    private AudioSource fireSound;
 
 
     [SerializeField] public bool isReversed = false;
@@ -61,6 +63,9 @@ public class player_controller : MonoBehaviour {
         avSound.clip = avSoundClip;
         spikeSound = gameObject.AddComponent<AudioSource>();
         spikeSound.clip = spikeSoundClip;
+        fireSound = gameObject.AddComponent<AudioSource>();
+        fireSound.clip = fireSoundClip;
+
         
 	}
 
@@ -214,6 +219,10 @@ public class player_controller : MonoBehaviour {
             if (Mathf.Abs(timeReachedFireVel - gameManager.Timer) > timeDiffFireVel)
             {
                 showFire();
+                if(!isOnFire)
+                {
+                    fireSound.Play();
+                }
                 isOnFire = true;
             }
 

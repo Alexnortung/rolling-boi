@@ -66,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1982389397941274}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 315.29987, y: 148.821, z: 0}
+  m_LocalPosition: {x: 387.85846, y: 145.72514, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4088805869664068}
@@ -132,6 +132,7 @@ MonoBehaviour:
   fireAngularVel: 650
   avSoundClip: {fileID: 8300000, guid: ada6beac62237264d90b3bee2b92eca0, type: 3}
   spikeSoundClip: {fileID: 8300000, guid: 22813698958aedd4ba7abdfa12a04245, type: 3}
+  fireSoundClip: {fileID: 8300000, guid: 3e59a704d5010c243ad09b518fa2d235, type: 3}
   isReversed: 0
   isAbleToWalkOnSpikes: 0
 --- !u!212 &212051786539603892
