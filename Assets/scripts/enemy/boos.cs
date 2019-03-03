@@ -89,7 +89,7 @@ public class boos : MonoBehaviour {
     void throwAura()
     {
         lastTimeAttack = manageGame.Timer;
-        GameObject selectedAura = auras[Random.Range(0, auras.Length - 1)];
+        GameObject selectedAura = auras[(int)Mathf.Floor(Random.Range(0, auras.Length - 0.01f))];
         Vector2 auraDirection = (player.transform.position - gameObject.transform.position);
         auraDirection.Normalize();
 
@@ -105,5 +105,10 @@ public class boos : MonoBehaviour {
         auraBody.velocity = auraDirection * auraSpeed;
 
         
+    }
+
+    void moveToPlayerRadius()
+    {
+
     }
 }
