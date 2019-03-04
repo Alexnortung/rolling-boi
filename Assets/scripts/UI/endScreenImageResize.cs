@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class endScreenImageResize : MonoBehaviour {
 
-    private ManageGame manageGame;
+    public ManageGame manageGame;
     public Text baddies;
     public Text time;
     public Text levelStarted;
@@ -23,4 +23,14 @@ public class endScreenImageResize : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void restartGame()
+    {
+        manageGame.gotoMainMenu();
+    }
+
+    public void exitGame()
+    {
+        Application.Quit();
+    }
 }

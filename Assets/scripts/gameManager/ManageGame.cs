@@ -94,5 +94,10 @@ public class ManageGame : MonoBehaviour
         baddiesKilled++;
     }
 
+    public void gotoMainMenu()
+    {
+        SelectLevel(0);
+    }
+
 
 }

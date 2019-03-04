@@ -30,6 +30,7 @@ public class UI : MonoBehaviour
 
     public void setStatePauseMenu(bool state)
     {
+        //Debug.Log("setting pause menu state");
         pauseMenu.SetActive(state);
         if(state)
         {
@@ -45,6 +46,11 @@ public class UI : MonoBehaviour
     {
         setStatePauseMenu( !pauseMenu.activeSelf);
         //Debug.Log("TOGGLED");
+    }
+
+    public void exitGame ()
+    {
+        Application.Quit();
     }
 
 
